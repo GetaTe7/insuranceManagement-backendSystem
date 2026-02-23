@@ -1,0 +1,50 @@
+  ΓùÅ Policy Integration API ΓÇ║ POST /api/v1/policies ΓÇ║ should successfully create a policy when called by an admin
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+    [0m [90m 51 |[39m
+     [90m 52 |[39m             [90m// Assertions[39m
+    [31m[1m>[22m[39m[90m 53 |[39m             expect(response[33m.[39mstatus)[33m.[39mtoBe([35m201[39m)[33m;[39m
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 54 |[39m             expect(response[33m.[39mbody[33m.[39msuccess)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m 55 |[39m             expect(response[33m.[39mbody[33m.[39mmessage)[33m.[39mtoBe([32m'Policy created successfully'[39m)[33m;[39m
+     [90m 56 |[39m             expect(response[33m.[39mbody[33m.[39mdata[33m.[39mpolicyNumber)[33m.[39mtoBe([32m'POL-12345'[39m)[33m;[39m[0m
+
+      at Object.toBe (tests/policy.test.js:53:37)
+
+  ΓùÅ Policy Integration API ΓÇ║ POST /api/v1/policies ΓÇ║ should return 401 if no token provided
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 401
+    Received: 500
+
+    [0m [90m 66 |[39m                 [33m.[39msend({})[33m;[39m
+     [90m 67 |[39m
+    [31m[1m>[22m[39m[90m 68 |[39m             expect(response[33m.[39mstatus)[33m.[39mtoBe([35m401[39m)[33m;[39m
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 69 |[39m             expect(response[33m.[39mbody[33m.[39msuccess)[33m.[39mtoBe([36mfalse[39m)[33m;[39m
+     [90m 70 |[39m             expect(response[33m.[39mbody[33m.[39mmessage)[33m.[39mtoBe([32m'Not authorized'[39m)[33m;[39m
+     [90m 71 |[39m         })[33m;[39m[0m
+
+      at Object.toBe (tests/policy.test.js:68:37)
+
+  ΓùÅ Policy Integration API ΓÇ║ POST /api/v1/policies ΓÇ║ should return 403 if user is a standard customer
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 403
+    Received: 500
+
+    [0m [90m 83 |[39m                 [33m.[39msend({})[33m;[39m [90m// Payload doesn't matter, auth triggers first[39m
+     [90m 84 |[39m
+    [31m[1m>[22m[39m[90m 85 |[39m             expect(response[33m.[39mstatus)[33m.[39mtoBe([35m403[39m)[33m;[39m
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 86 |[39m             expect(response[33m.[39mbody[33m.[39msuccess)[33m.[39mtoBe([36mfalse[39m)[33m;[39m
+     [90m 87 |[39m             expect(response[33m.[39mbody[33m.[39mmessage)[33m.[39mtoContain([32m'is not authorized'[39m)[33m;[39m
+     [90m 88 |[39m         })[33m;[39m[0m
+
+      at Object.toBe (tests/policy.test.js:85:37)

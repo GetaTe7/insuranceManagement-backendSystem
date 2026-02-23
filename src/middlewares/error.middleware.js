@@ -27,7 +27,12 @@ const errorHandler = (err, req, res, next) => {
     }
 
     const statusCode = error.statusCode || 500;
-    const message = error.message || 'Server Error';
+    let message = error.message || 'Server Error';
+
+    // Production-safe error messages: Hide internal 500 error details
+    if (process.env.NODE_ENV === 'production' && statusCode === 500) {
+        message = 'Internal Server Error';
+    }
     const errDetail = process.env.NODE_ENV === 'development' ? err.stack : undefined;
 
     return errorResponse(res, message, statusCode, errDetail);
