@@ -29,3 +29,17 @@ export const login = async (req, res, next) => {
         next(error);
     }
 };
+
+/**
+ * @desc    Get current logged in user
+ * @route   GET /api/v1/auth/me
+ * @access  Private
+ */
+export const getMe = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.user.id);
+        successResponse(res, 'User data retrieved', user);
+    } catch (error) {
+        next(error);
+    }
+};
